@@ -35,15 +35,15 @@ namespace Oika.Apps.CHaserGuiClient.Line
             socket.Connect(host, port);
 
             send(team);
-
-            var res = receive(1);
-            if (res != "@") throw new InvalidOperationException("受信電文 " + res + " は不正な値です");
         }
 
         public ResponseData GetReady()
         {
+            var res = receive(1);
+            if (res != "@") throw new InvalidOperationException("受信電文 " + res + " は不正な値です");
+
             send("gr");
-            var res = receive(ResponseData.TotalLength);
+            res = receive(ResponseData.TotalLength);
             return new ResponseData(res);
         }
 
@@ -54,9 +54,6 @@ namespace Oika.Apps.CHaserGuiClient.Line
 
             send("#");
             
-            var resStTern = receive(1);
-            if (resStTern != "@") throw new InvalidOperationException("受信電文 " + res + " は不正な値です");
-
             return new ResponseData(res);
         }
 
